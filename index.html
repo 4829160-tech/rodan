@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Rodan’s personal site about strategy, technology, and automation.">
+  <meta name="theme-color" content="#0a1013">
+  <title>Rodan</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0a1013;
+      --surface: #0e171a;
+      --ink: #eff7f3;
+      --muted: #a4b5b5;
+      --signal: #bdff80;
+      --line: #2b3c40;
+      --mono: ui-monospace, SFMono-Regular, Consolas, monospace;
+      font-family: system-ui, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--ink); }
+    a { color: inherit; text-decoration: none; }
+    a:focus-visible { outline: 2px solid var(--signal); outline-offset: 5px; }
+    a, h2, .wordmark { scroll-margin-top: 1.5rem; }
+    p { margin: 0; }
+
+    .wrap { width: min(100% - 3rem, 76rem); margin-inline: auto; }
+    .mono { font: 600 .72rem/1.5 var(--mono); letter-spacing: .105em; text-transform: uppercase; }
+    .muted { color: var(--muted); }
+
+    .topbar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: .75rem 1.5rem;
+      min-height: 4.75rem;
+      padding-block: .8rem;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .wordmark { display: inline-flex; align-items: center; gap: .7rem; font-size: .88rem; }
+    .mark {
+      display: grid;
+      place-items: center;
+      width: 2rem;
+      height: 2rem;
+      border: 1px solid var(--signal);
+      color: var(--signal);
+      background: #17251b;
+    }
+
+    nav { display: flex; flex-wrap: wrap; align-items: center; gap: .15rem clamp(.65rem, 3vw, 1.8rem); }
+    nav a { color: var(--muted); padding: .45rem 0; }
+    nav a:hover, .text-link:hover { color: var(--signal); }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.04fr 1fr;
+      align-items: center;
+      gap: clamp(2rem, 5vw, 5rem);
+      padding-block: clamp(3rem, 8vw, 7rem);
+    }
+
+    .eyebrow { display: flex; align-items: center; gap: .7rem; color: var(--signal); }
+    .eyebrow::before { content: ""; width: 1.45rem; height: 1px; background: currentColor; }
+    h1 { margin: 1.2rem 0 1.25rem; font-size: clamp(3.1rem, 6.45vw, 6.45rem); line-height: .96; letter-spacing: -.072em; }
+    h1 em { color: var(--signal); font-style: normal; }
+    .intro { max-width: 32rem; color: var(--muted); font-size: clamp(1.04rem, 1.7vw, 1.26rem); line-height: 1.65; }
+    .actions { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem 1.35rem; margin-top: 1.8rem; }
+    .button, .text-link { display: inline-flex; align-items: center; gap: .65rem; min-height: 2.8rem; }
+    .button { padding: .7rem 1rem; color: #0b150c; background: var(--signal); border: 1px solid var(--signal); }
+    .button:hover { color: var(--signal); background: #192820; }
+
+    .diagram {
+      position: relative;
+      overflow: hidden;
+      margin: 0;
+      background: radial-gradient(ellipse at center, #173327 0%, #0d1b1c 52%, #0c1518 100%);
+      border: 1px solid var(--line);
+    }
+
+    .diagram-bar {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      gap: .55rem 1rem;
+      padding: .85rem 1rem;
+      background: #0e181b;
+      color: var(--muted);
+    }
+
+    .diagram-bar:first-child { border-bottom: 1px solid var(--line); }
+    .diagram-bar:last-child { border-top: 1px solid var(--line); }
+    .index { color: var(--signal); }
+    .diagram svg { display: block; width: 100%; height: auto; }
+    .orbit { transform-origin: 260px 183px; animation: orbit 2s ease-out; }
+    @keyframes orbit { from { transform: rotate(-38deg); } }
+
+    .section { padding-block: clamp(2.2rem, 5vw, 4.4rem); border-top: 1px solid var(--line); }
+    .section-heading { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: .4rem 1rem; margin-bottom: 1.45rem; }
+    h2 { margin: 0; font-size: clamp(1.85rem, 3.2vw, 3rem); line-height: 1.08; letter-spacing: -.055em; }
+    .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .75rem; }
+    .card {
+      display: flex;
+      flex-direction: column;
+      padding: clamp(1rem, 2.6vw, 1.75rem);
+      border: 1px solid var(--line);
+      background: linear-gradient(145deg, #13221f, var(--surface) 75%);
+    }
+    .card-top { display: flex; justify-content: space-between; align-items: center; gap: .5rem; color: var(--signal); }
+    .card svg { width: 2rem; height: 2rem; }
+    h3 { margin: 1.3rem 0 .45rem; font-size: clamp(1.25rem, 2vw, 1.55rem); letter-spacing: -.035em; }
+    .card p, .steps p { max-width: 38ch; color: var(--muted); line-height: 1.55; }
+
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 0; padding: 0; list-style: none; }
+    .steps li { padding: 1rem .85rem 0 0; border-top: 1px solid var(--line); }
+    .steps h3 { margin-top: .55rem; }
+
+    footer {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: .5rem 1.5rem;
+      padding-block: 1.1rem;
+      border-top: 1px solid var(--line);
+    }
+
+    @media (max-width: 49rem) {
+      .hero { grid-template-columns: 1fr; }
+      h1 { font-size: clamp(3rem, 10vw, 5.5rem); }
+    }
+
+    @media (max-width: 36rem) {
+      .wrap { width: calc(100% - 2rem); }
+      .grid, .steps { grid-template-columns: 1fr; }
+      .diagram-bar { flex-wrap: wrap; }
+    }
+
+    @media (prefers-reduced-motion: reduce) { .orbit { animation: none; } }
+  </style>
+</head>
+<body>
+  <div class="wrap" id="top">
+    <header class="topbar">
+      <a class="wordmark mono" href="#top"><span class="mark" aria-hidden="true">R_</span> Rodan</a>
+      <nav class="mono" aria-label="Main navigation">
+        <a href="#focus">Focus</a>
+        <a href="#approach">Approach</a>
+        <a href="https://github.com/4829160-tech">GitHub <span aria-hidden="true">↗</span></a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="intro">
+        <div>
+          <p class="eyebrow mono">Personal site / Rodan</p>
+          <h1 id="intro">Strategy meets <em>technology.</em></h1>
+          <p class="intro">I’m Rodan. I’m interested in how good decisions, useful software, and thoughtful automation can make complex work easier.</p>
+          <div class="actions mono">
+            <a class="button" href="#focus">Explore my focus <span aria-hidden="true">↓</span></a>
+            <a class="text-link" href="https://github.com/4829160-tech">View GitHub <span aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+
+        <figure class="diagram" aria-label="An abstract diagram connecting strategy, technology, and automation">
+          <div class="diagram-bar mono" aria-hidden="true"><span>Systems map</span><span class="index">Fig. 01</span></div>
+          <svg viewBox="0 0 520 366" fill="none" aria-hidden="true">
+            <defs>
+              <pattern id="grid" width="26" height="26" patternUnits="userSpaceOnUse">
+                <path d="M26 0H0v26" stroke="#85e0bd" stroke-opacity=".13"/>
+              </pattern>
+              <radialGradient id="halo">
+                <stop stop-color="#bdff80" stop-opacity=".22"/>
+                <stop offset="1" stop-color="#bdff80" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+            <path d="M0 0h520v366H0z" fill="url(#grid)"/>
+            <circle cx="260" cy="183" r="155" fill="url(#halo)"/>
+            <g stroke="#77ad99" stroke-width="1">
+              <path d="M34 183h452M260 27v312" stroke-opacity=".42" stroke-dasharray="4 7"/>
+              <circle cx="260" cy="183" r="141" stroke-opacity=".38"/>
+              <circle cx="260" cy="183" r="118" stroke-opacity=".45" stroke-dasharray="2 5"/>
+              <circle cx="260" cy="183" r="90" stroke-opacity=".47"/>
+              <path d="M260 74l95 55v108l-95 55-95-55V129zM165 129l190 108m0-108L165 237M260 74v218" stroke-opacity=".42"/>
+              <path d="M260 110l63 37v72l-63 37-63-37v-72z" fill="#173123" stroke="#bdff80" stroke-opacity=".88"/>
+              <path d="M260 110l63 37-63 36-63-36m63 36v73" stroke="#bdff80" stroke-opacity=".74"/>
+              <path d="M227 165l33-18 33 18m-33-18v-37M227 165v36l33 19 33-19v-36" stroke="#bdff80" stroke-opacity=".48"/>
+              <path d="M197 147l30 18m66 0l30-18m-63 73v36" stroke="#bdff80" stroke-opacity=".45"/>
+            </g>
+            <g class="orbit">
+              <path d="M260 42a141 141 0 0 1 123 72m-123 210a141 141 0 0 1-123-72" stroke="#bdff80" stroke-width="2"/>
+              <circle cx="383" cy="114" r="4" fill="#bdff80"/>
+              <circle cx="137" cy="252" r="4" fill="#bdff80"/>
+            </g>
+            <g stroke="#81c2a9" stroke-opacity=".74">
+              <path d="M165 129H97l-20-20H42m313 20h65l21-20h37M260 292v28h72l18-18h55"/>
+            </g>
+            <g fill="#bdff80">
+              <path d="M39 106h6v6h-6zm436 0h6v6h-6zm-73 193h6v6h-6z"/>
+              <circle cx="165" cy="129" r="3"/><circle cx="355" cy="129" r="3"/><circle cx="260" cy="292" r="3"/>
+              <circle cx="260" cy="183" r="4"/>
+            </g>
+            <g fill="#b4d9cb" font-family="monospace" font-size="10" letter-spacing="1.1">
+              <text x="42" y="96">STRATEGY</text>
+              <text x="478" y="96" text-anchor="end">TECHNOLOGY</text>
+              <text x="405" y="288" text-anchor="end">AUTOMATION</text>
+            </g>
+          </svg>
+          <figcaption class="diagram-bar mono" aria-hidden="true"><span>Direction → systems → action</span><span class="index">[ R_ ]</span></figcaption>
+        </figure>
+      </section>
+
+      <section class="section" aria-labelledby="focus">
+        <div class="section-heading"><h2 id="focus">Focus areas</h2><p class="mono muted">01 / What I’m exploring</p></div>
+        <div class="grid">
+          <article class="card">
+            <div class="card-top mono"><span>01</span><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="16" cy="16" r="11"/><circle cx="16" cy="16" r="5"/><path d="M16 2v7m0 14v7M2 16h7m14 0h7"/></svg></div>
+            <h3>Strategy</h3>
+            <p>Define the outcome, weigh the tradeoffs, and decide what deserves attention first.</p>
+          </article>
+          <article class="card">
+            <div class="card-top mono"><span>02</span><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="7" y="7" width="18" height="18" rx="2"/><path d="M12 12l-4 4 4 4m8-8l4 4-4 4m-2-10l-4 12M12 3v4m8-4v4m-8 18v4m8-4v4M3 12h4m-4 8h4m18-8h4m-4 8h4"/></svg></div>
+            <h3>Technology</h3>
+            <p>Explore software and data tools that solve a real problem and stay easy to use.</p>
+          </article>
+          <article class="card">
+            <div class="card-top mono"><span>03</span><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M8 13a9 9 0 0 1 15-4l3 3m0-7v7h-7M24 19a9 9 0 0 1-15 4l-3-3m0 7v-7h7"/><circle cx="16" cy="16" r="2"/></svg></div>
+            <h3>Automation</h3>
+            <p>Find the repetitive steps in a workflow and make the routine parts run reliably.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="approach">
+        <div class="section-heading"><h2 id="approach">How I think about building</h2><p class="mono muted">02 / Approach</p></div>
+        <ol class="steps">
+          <li><span class="index mono">01 / Frame</span><h3>Start with the problem</h3><p>Ask who needs a better outcome and where the current process gets in the way.</p></li>
+          <li><span class="index mono">02 / Build</span><h3>Test a small idea</h3><p>Build the simplest version that can show whether the idea helps.</p></li>
+          <li><span class="index mono">03 / Refine</span><h3>Learn from use</h3><p>Pay attention to where people get stuck and use that feedback to improve the next version.</p></li>
+        </ol>
+      </section>
+    </main>
+
+    <footer class="mono">
+      <span class="muted">Rodan / Personal site</span>
+      <a class="text-link" href="https://github.com/4829160-tech">GitHub <span aria-hidden="true">↗</span></a>
+    </footer>
+  </div>
+</body>
+</html>
